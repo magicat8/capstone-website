@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Whale's Tale Inventory System — Capstone Mockup</title>
+  <meta name="description" content="Inventory system prototype for Whale's Tale Bookstores" />
+  <style>
+    /* ==========================
+       Base / Reset
+       ========================== */
+    :root{
+      --bg:#0f1724; /* dark navy */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#7c5cff; /* purple */
+      --accent-2:#2dd4bf; /* teal */
+      --glass: rgba(255,255,255,0.04);
+      --radius:12px;
+      --fw-regular: 400;
+      --fw-bold:700;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,var(--bg),#081021 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px;
+    }
+
+    /* ==========================
+       Layout
+       ========================== */
+    .container{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#041022}
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
+    nav a.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041022;font-weight:700}
+
+    /* ==========================
+       Hero
+       ========================== */
+    .hero{display:block;margin-bottom:28px}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:28px;border-radius:16px;backdrop-filter:blur(6px)}
+    .hero h2{font-size:28px;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .kpis{display:flex;gap:12px;flex-wrap:wrap}
+    .kpi{background:var(--card);padding:12px;border-radius:12px;text-align:center;min-width:86px}
+    .kpi .num{font-weight:700;font-size:18px}
+
+    /* ==========================
+       Sections: cards grid
+       ========================== */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+    .card{background:var(--card);padding:18px;border-radius:14px}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* ==========================
+       Gallery / Features
+       ========================== */
+    .features{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:28px}
+    .feature-list{display:flex;flex-direction:column;gap:12px}
+    .feature{display:flex;gap:12px;align-items:flex-start}
+    .feature .icon{width:44px;height:44px;border-radius:10px;background:var(--glass);display:grid;place-items:center;color:var(--accent)}
+
+    /* Timeline / team */
+    .timeline{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:12px}
+    .timeline li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+
+    /* Contact / footer */
+    footer{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041022;font-weight:700}
+    .muted{color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .features{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      nav{display:none}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+
+    /* small helpers */
+    .muted-text{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px}
+    .chip{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo">PT</div>
+        <div>
+          <h1><!-- CHANGE: Project short name -->Whale's Tale Inventory</h1>
+          <div class="muted"><!-- CHANGE: One-line descriptor -->Inventory & sales tracking for the Whale’s Tale Bookstores (Mills & Belmar)</div>
+        </div>
+      </div>
+
+      <nav aria-label="Primary navigation">
+        <!-- CHANGE: Edit nav links to match pages -->
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#team">Team</a>
+        <a class="cta" href="#contact">Get Involved</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <h2><!-- CHANGE: Main headline -->Whale's Tale Inventory System — A Short descriptive headline</h2>
+        <p><!-- CHANGE: Two-to-three sentence summary -->A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+
+        <div class="kpis">
+          <div class="kpi"><div class="num">Research → Design → Build → Test</div><div class="muted">Timeline</div></div>
+          <div class="kpi"><div class="num">Solo (Cameron Bilyeu)</div><div class="muted">Team members</div></div>
+          <div class="kpi"><div class="num">Django, PostgreSQL, JavaScript</div><div class="muted">Tech</div></div>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px">
+          <a class="btn btn-primary" href="#mockup" role="button">Live mockups</a>
+          <a class="btn" href="#download" role="button">Download assets</a>
+        </div>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:13px">
+          Deliverables: Visual mockups • Prototype link • Project poster
+        </div>
+      </div>
+    </section>
+
+    <!-- Info cards -->
+    <section class="grid">
+      <article class="card">
+        <h3 id="about">About</h3>
+        <p>ABOUT_SECTION_BODY</p>
+      </article>
+
+      <article class="card">
+        <h3>Requirements / Objectives</h3>
+        <p>
+          • Scan ISBN/UPC to auto-populate items<br>
+          • Track quantity, location, genre, condition, price history, and sales<br>
+          • Provide reports for turnover and unsold inventory
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Assessment</h3>
+        <p class="muted-text">Criteria: Functionality, data integrity, UI/UX polish, reporting, documentation</p>
+      </article>
+    </section>
+
+    <!-- Features and gallery -->
+    <section class="features" id="features">
+      <div class="feature-list">
+        <div class="card">
+          <h3>Key features</h3>
+          <p class="muted-text">List your main features here.</p>
+        </div>
+
+        <div class="card timeline">
+          <h3>Project timeline</h3>
+          <ul style="list-style:none;padding:0;margin:0">
+            <li><strong>Phase 1</strong> — <span class="muted-text">Research (Due 9/10)</span></li>
+            <li><strong>Phase 2</strong> — <span class="muted-text">Design / Prototyping (Due 10/8)</span></li>
+            <li><strong>Phase 3</strong> — <span class="muted-text">Prototype Testing (Due 10/10)</span></li>
+            <li><strong>Phase 4</strong> — <span class="muted-text">Implementation / Development (Target 1/31)</span></li>
+            <li><strong>Phase 5</strong> — <span class="muted-text">Final Testing / Validation (Due 2/11)</span></li>
+            <li><strong>Phase 6</strong> — <span class="muted-text">Final Deliverable / Presentation</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="card" id="gallery">
+        <h3>Gallery & Wireframes</h3>
+        <p class="muted-text">Replace with links or image placeholders.</p>
+      </aside>
+    </section>
+
+    <!-- Team / credits -->
+    <section class="grid" id="team">
+      <article class="card">
+        <h3>Team</h3>
+        <p class="muted-text">Cameron Bilyeu — Role</p>
+      </article>
+
+      <article class="card">
+        <h3>Tools & Tech</h3>
+        <p class="muted-text">Django, PostgreSQL, JavaScript</p>
+      </article>
+
+      <article class="card">
+        <h3>Links</h3>
+        <p class="muted-text">Repo: REPO_LINK_PLACEHOLDER<br>Prototype: PROTOTYPE_LINK_PLACEHOLDER</p>
+      </article>
+    </section>
+
+    <!-- Contact -->
+    <section class="card" id="contact">
+      <h3>Contact / Submission</h3>
+      <p class="muted-text">To submit, attach mockup images, prototype link, and README to Google Classroom.</p>
+      <form id="contact-form" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input id="name" placeholder="Your name" style="flex:1;min-width:180px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit" />
+        <input id="email" placeholder="Your email" style="flex:1;min-width:180px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit" />
+        <button type="submit" class="btn btn-primary">Save draft</button>
+      </form>
+      <div id="form-message" style="margin-top:10px;color:var(--accent);display:none"></div>
+    </section>
+
+    <footer>
+      <div class="muted">© YEAR_PLACEHOLDER — Whale's Tale Inventory</div>
+      <div style="display:flex;gap:8px">
+        <a class="muted" href="#">Privacy</a>
+        <a class="muted" href="#">Syllabus</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      const contactForm = document.getElementById("contact-form");
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value || "Anonymous";
+          const msg = document.getElementById("form-message");
+          if (msg) {
+            msg.style.display = "block";
+            msg.textContent = 'Draft saved locally for ' + name + ' — (visual placeholder only)';
+            setTimeout(() => { msg.style.display = "none"; }, 6000);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
