@@ -108,7 +108,7 @@
         <div class="logo">PT</div>
         <div>
           <h1><!-- CHANGE: Project short name -->Whale's Tale Inventory</h1>
-          <div class="muted"><!-- CHANGE: One-line descriptor -->Inventory & sales tracking for the Whale’s Tale Bookstores (Mills)</div>
+          <div class="muted"><!-- CHANGE: One-line descriptor -->Inventory & sales tracking for the Whale’s Tale Bookstores (Mills & Belmar)</div>
         </div>
       </div>
 
@@ -136,7 +136,7 @@
 
         <div style="margin-top:18px;display:flex;gap:12px">
           <a class="btn btn-primary" href="#mockup" role="button">Live mockups</a>
-          <!-- <a class="btn" href="#download" role="button">Download assets</a> -->
+          <a class="btn" href="#download" role="button">Download assets</a>
         </div>
 
         <div style="margin-top:16px;color:var(--muted);font-size:13px">
@@ -149,7 +149,7 @@
     <section class="grid">
       <article class="card">
         <h3 id="about">About</h3>
-        <p>A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+        <p>ABOUT_SECTION_BODY</p>
       </article>
 
       <article class="card">
@@ -183,7 +183,7 @@
             <li><strong>Phase 3</strong> — <span class="muted-text">Prototype Testing (Due 10/10)</span></li>
             <li><strong>Phase 4</strong> — <span class="muted-text">Implementation / Development (Target 1/31)</span></li>
             <li><strong>Phase 5</strong> — <span class="muted-text">Final Testing / Validation (Due 2/11)</span></li>
-            <li><strong>Phase 6</strong> — <span class="muted-text">Final Deliverable / Presentation</span></li>
+            <li><strong>Phase 6</strong> — <span class="muted-text">Final Deliverable / Presentation (TBD)</span></li>
           </ul>
         </div>
       </div>
@@ -208,14 +208,24 @@
 
       <article class="card">
         <h3>Links</h3>
-        <p class="muted-text">Repo: Not yet Available<br>Prototype: <a href="https://host.xeroideas.org">host.xeroideas.org</a></p>
+        <p class="muted-text">Repo: REPO_LINK_PLACEHOLDER<br>Prototype: PROTOTYPE_LINK_PLACEHOLDER</p>
       </article>
     </section>
 
-   
+    <!-- Contact -->
+    <section class="card" id="contact">
+      <h3>Contact / Submission</h3>
+      <p class="muted-text">To submit, attach mockup images, prototype link, and README to Google Classroom.</p>
+      <form id="contact-form" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input id="name" placeholder="Your name" style="flex:1;min-width:180px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit" />
+        <input id="email" placeholder="Your email" style="flex:1;min-width:180px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit" />
+        <button type="submit" class="btn btn-primary">Save draft</button>
+      </form>
+      <div id="form-message" style="margin-top:10px;color:var(--accent);display:none"></div>
+    </section>
 
     <footer>
-      <div class="muted">© 2025 — Whale's Tale Inventory</div>
+      <div class="muted">© YEAR_PLACEHOLDER — Whale's Tale Inventory</div>
       <div style="display:flex;gap:8px">
         <a class="muted" href="#">Privacy</a>
         <a class="muted" href="#">Syllabus</a>
