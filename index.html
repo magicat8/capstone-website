@@ -7,49 +7,68 @@
   <meta name="description" content="Inventory system prototype for Whale's Tale Bookstores" />
   <style>
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --muted:#9aa4b2;
-      --accent:#7c5cff;
-      --accent-2:#2dd4bf;
-      --glass: rgba(255,255,255,0.04);
-      --radius:12px;
-      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2;
+      --accent:#7c5cff; --accent-2:#2dd4bf; --glass:rgba(255,255,255,0.04);
+      --radius:12px; --fw-regular:400; --fw-bold:700;
+      font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      background: linear-gradient(180deg,var(--bg),#081021 60%);
-      color:#e6eef6;
-      line-height:1.45;
-      padding:32px;
-    }
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#081021 60%);
+      color:#e6eef6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+      line-height:1.45;padding:32px;}
     .container{max-width:1100px;margin:0 auto}
     header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#041022}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#041022}
+    .brand h1{font-size:18px;margin:0}
     nav{display:flex;gap:12px;align-items:center}
     nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
     nav a.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041022;font-weight:700}
-    .card{background:var(--card);padding:18px;border-radius:14px;margin-bottom:16px}
+    .hero{display:block;margin-bottom:28px}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      padding:28px;border-radius:16px;backdrop-filter:blur(6px)}
+    .hero h2{font-size:28px;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .kpis{display:flex;gap:12px;flex-wrap:wrap}
+    .kpi{background:var(--card);padding:12px;border-radius:12px;text-align:center;min-width:86px}
+    .kpi .num{font-weight:700;font-size:18px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+    .card{background:var(--card);padding:18px;border-radius:14px}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+    .features{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:28px}
+    .feature-list{display:flex;flex-direction:column;gap:12px}
+    .timeline{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:16px;border-radius:12px}
+    .timeline li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+    footer{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.03);
+      display:flex;justify-content:space-between;align-items:center}
     .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none}
     .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041022;font-weight:700}
-    input, textarea {
-      width:100%;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:8px;
-      color:#e6eef6;
-      padding:8px;
-      margin-top:4px;
+    .muted{color:var(--muted)}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}nav{display:none}
+      header{flex-direction:column;align-items:flex-start;gap:12px}}
+    .muted-text{color:var(--muted)}
+    /* Contact form styling */
+    .contact-card{background:var(--card);padding:22px;border-radius:14px;margin-top:32px}
+    form label{display:block;margin-top:10px;font-weight:600}
+    form input,form textarea,form select{
+      width:100%;padding:10px;margin-top:4px;border-radius:8px;
+      border:none;background:rgba(255,255,255,0.05);color:#fff;
     }
-    label{display:block;margin-bottom:10px;font-size:14px}
-    textarea{resize:vertical}
-    footer{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
+    form button{
+      margin-top:14px;padding:10px 16px;border:none;border-radius:8px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#041022;font-weight:700;cursor:pointer;
+    }
+    #form-message{margin-top:10px;font-size:14px;display:none}
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- your original site layout (unchanged) -->
     <header>
       <div class="brand">
         <div class="logo">PT</div>
@@ -61,43 +80,78 @@
       <nav>
         <a href="#about">About</a>
         <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
         <a href="#team">Team</a>
         <a class="cta" href="#contact">Get Involved</a>
       </nav>
     </header>
 
-    <section class="card">
-      <h3 id="about">About</h3>
-      <p>A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Whale's Tale Inventory System — A Short descriptive headline</h2>
+        <p>A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+        <div class="kpis">
+          <div class="kpi"><div class="num">Research → Design → Build → Test</div><div class="muted">Timeline</div></div>
+          <div class="kpi"><div class="num">Solo (Cameron Bilyeu)</div><div class="muted">Team members</div></div>
+          <div class="kpi"><div class="num">Django, PostgreSQL, JavaScript</div><div class="muted">Tech</div></div>
+        </div>
+      </div>
     </section>
 
-    <section class="card" id="team">
-      <h3>Team</h3>
-      <p>Cameron Bilyeu — Developer</p>
+    <section class="grid">
+      <article class="card">
+        <h3 id="about">About</h3>
+        <p>A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+      </article>
+      <article class="card">
+        <h3>Requirements / Objectives</h3>
+        <p>• Scan ISBN/UPC<br>• Track quantity, genre, condition<br>• Provide turnover reports</p>
+      </article>
+      <article class="card">
+        <h3>Assessment</h3>
+        <p class="muted-text">Criteria: Functionality, data integrity, UI polish, documentation</p>
+      </article>
     </section>
 
-    <!-- Contact Section -->
-    <section class="card" id="contact">
+    <section class="features" id="features">
+      <div class="feature-list">
+        <div class="card"><h3>Key features</h3><p class="muted-text">List your main features here.</p></div>
+        <div class="card timeline">
+          <h3>Project timeline</h3>
+          <ul style="list-style:none;padding:0;margin:0">
+            <li><strong>Phase 1</strong> — Research</li>
+            <li><strong>Phase 2</strong> — Design</li>
+            <li><strong>Phase 3</strong> — Testing</li>
+            <li><strong>Phase 4</strong> — Implementation</li>
+          </ul>
+        </div>
+      </div>
+      <aside class="card" id="gallery">
+        <h3>Gallery & Wireframes</h3>
+        <p class="muted-text">Replace with links or image placeholders.</p>
+      </aside>
+    </section>
+
+    <section class="grid" id="team">
+      <article class="card"><h3>Team</h3><p class="muted-text">Cameron Bilyeu — Developer</p></article>
+      <article class="card"><h3>Tools & Tech</h3><p class="muted-text">Django, PostgreSQL, JavaScript</p></article>
+      <article class="card"><h3>Links</h3><p class="muted-text">Repo: TBD<br>Prototype: <a href="https://host.xeroideas.org">host.xeroideas.org</a></p></article>
+    </section>
+
+    <!-- ✅ Contact form appended here -->
+    <section class="contact-card" id="contact">
       <h3>Contact</h3>
       <form id="contact-form">
-        <label>
-          Name (required)
-          <input type="text" id="name" name="name" required />
-        </label>
-        <label>
-          Email (required)
-          <input type="email" id="email" name="email" required />
-        </label>
-        <label>
-          Subject
-          <input type="text" id="subject" name="subject" />
-        </label>
-        <label>
-          Message (required)
-          <textarea id="message" name="message" rows="5" required></textarea>
-        </label>
-        <button type="submit" class="btn btn-primary" id="submit-btn">Send Message</button>
-        <div id="form-message" style="margin-top:8px;display:none;"></div>
+        <label for="name">Name (required)</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email (required)</label>
+        <input type="email" id="email" name="email" required />
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" />
+        <label for="message">Message (required)</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="submit">Send Message</button>
+        <div id="form-message"></div>
       </form>
     </section>
 
@@ -111,43 +165,39 @@
   </div>
 
   <script>
-  document.getElementById("contact-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const msgBox = document.getElementById("form-message");
-    const btn = document.getElementById("submit-btn");
-    
-    msgBox.style.display = "block";
-    msgBox.textContent = "Sending...";
-    btn.disabled = true;
-
-    const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      subject: form.subject.value,
-      message: form.message.value,
-    };
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        msgBox.textContent = "✅ Message stored successfully!";
-        form.reset();
-      } else {
-        msgBox.textContent = "❌ Failed to save message. Try again later.";
+    const form = document.getElementById("contact-form");
+    const msg = document.getElementById("form-message");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.style.display = "block";
+      msg.textContent = "Sending...";
+      msg.style.color = "#9aa4b2";
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+      };
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          msg.textContent = "✅ Message stored successfully!";
+          msg.style.color = "#2dd4bf";
+          form.reset();
+        } else {
+          const err = await res.json();
+          msg.textContent = "❌ Failed: " + (err.error || "Try again later.");
+          msg.style.color = "#f87171";
+        }
+      } catch {
+        msg.textContent = "❌ Network error — please try again later.";
+        msg.style.color = "#f87171";
       }
-    } catch (err) {
-      msgBox.textContent = "⚠️ Network error. Please try again.";
-    } finally {
-      btn.disabled = false;
-      setTimeout(() => (msgBox.style.display = "none"), 6000);
-    }
-  });
+    });
   </script>
 </body>
 </html>
