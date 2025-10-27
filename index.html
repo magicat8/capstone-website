@@ -81,6 +81,17 @@
     .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none}
     .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041022;font-weight:700}
     .muted{color:var(--muted)}
+    input, textarea {
+      width:100%;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px;
+      color:#e6eef6;
+      padding:8px;
+      margin-top:4px;
+    }
+    label{display:block;margin-bottom:10px;font-size:14px}
+    textarea{resize:vertical}
 
     /* Responsive */
     @media (max-width:980px){
@@ -97,7 +108,6 @@
     .muted-text{color:var(--muted)}
     .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px}
     .chip{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02)}
-
   </style>
 </head>
 <body>
@@ -107,13 +117,12 @@
       <div class="brand">
         <div class="logo">PT</div>
         <div>
-          <h1><!-- CHANGE: Project short name -->Whale's Tale Inventory</h1>
-          <div class="muted"><!-- CHANGE: One-line descriptor -->Inventory & sales tracking for the Whale’s Tale Bookstores (Mills)</div>
+          <h1>Whale's Tale Inventory</h1>
+          <div class="muted">Inventory & sales tracking for the Whale’s Tale Bookstores (Mills)</div>
         </div>
       </div>
 
       <nav aria-label="Primary navigation">
-        <!-- CHANGE: Edit nav links to match pages -->
         <a href="#about">About</a>
         <a href="#features">Features</a>
         <a href="#gallery">Gallery</a>
@@ -125,8 +134,8 @@
     <!-- Hero -->
     <section class="hero">
       <div class="hero-card">
-        <h2><!-- CHANGE: Main headline -->Whale's Tale Inventory System — A Short descriptive headline</h2>
-        <p><!-- CHANGE: Two-to-three sentence summary -->A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
+        <h2>Whale's Tale Inventory System — A Short descriptive headline</h2>
+        <p>A Django-backed inventory system for the Jefferson County Library Foundation's two Whale's Tale Bookstores. Replace this placeholder with your summary.</p>
 
         <div class="kpis">
           <div class="kpi"><div class="num">Research → Design → Build → Test</div><div class="muted">Timeline</div></div>
@@ -136,7 +145,6 @@
 
         <div style="margin-top:18px;display:flex;gap:12px">
           <a class="btn btn-primary" href="#mockup" role="button">Live mockups</a>
-          <!-- <a class="btn" href="#download" role="button">Download assets</a> -->
         </div>
 
         <div style="margin-top:16px;color:var(--muted);font-size:13px">
@@ -212,7 +220,30 @@
       </article>
     </section>
 
-   
+    <!-- Contact Section -->
+    <section class="card" id="contact">
+      <h3>Contact</h3>
+      <form id="contact-form">
+        <label>
+          Name (required)
+          <input type="text" id="name" name="name" required />
+        </label>
+        <label>
+          Email (required)
+          <input type="email" id="email" name="email" required />
+        </label>
+        <label>
+          Subject
+          <input type="text" id="subject" name="subject" />
+        </label>
+        <label>
+          Message (required)
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Send Message</button>
+        <div id="form-message" style="margin-top:8px;display:none;"></div>
+      </form>
+    </section>
 
     <footer>
       <div class="muted">© 2025 — Whale's Tale Inventory</div>
@@ -221,25 +252,46 @@
         <a class="muted" href="#">Syllabus</a>
       </div>
     </footer>
-
   </div>
 
   <script>
-    (function () {
-      const contactForm = document.getElementById("contact-form");
-      if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const name = document.getElementById("name").value || "Anonymous";
-          const msg = document.getElementById("form-message");
-          if (msg) {
-            msg.style.display = "block";
-            msg.textContent = 'Draft saved locally for ' + name + ' — (visual placeholder only)';
-            setTimeout(() => { msg.style.display = "none"; }, 6000);
-          }
-        });
+  document.getElementById("contact-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const msgBox = document.getElementById("form-message");
+    const btn = document.getElementById("submit-btn");
+    
+    msgBox.style.display = "block";
+    msgBox.textContent = "Sending...";
+    btn.disabled = true;
+
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      subject: form.subject.value,
+      message: form.message.value,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        msgBox.textContent = "✅ Message sent successfully!";
+        form.reset();
+      } else {
+        msgBox.textContent = "❌ Failed to send message. Try again later.";
       }
-    })();
+    } catch (err) {
+      msgBox.textContent = "⚠️ Network error. Please try again.";
+    } finally {
+      btn.disabled = false;
+      setTimeout(() => (msgBox.style.display = "none"), 6000);
+    }
+  });
   </script>
 </body>
 </html>
